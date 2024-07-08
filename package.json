@@ -1,0 +1,26 @@
+{
+  "name": "baiga-client",
+  "version": "1.0.0",
+  "description": "baiga client",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "phaser": "^3.80.1",
+    "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7",
+    "@types/webfontloader": "^1.6.38",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vite-plugin-checker": "^0.6.2"
+  }
+}
