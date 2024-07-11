@@ -1,6 +1,10 @@
 @font-face {
-  font-family: Triomphe;
-  src: url('../fonts/Triomphe.ttf');
+  font-family: geometria_extrabold;
+  src: url('../fonts/geometria_extrabold.otf');
+}
+@font-face {
+  font-family: geometria_bold;
+  src: url('../fonts/geometria_bold.otf');
 }
 * {
   margin: 0;
@@ -23,6 +27,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #98D0EF;
 }
 canvas {
   width: 100%;

@@ -13,30 +13,26 @@ class Loading extends Phaser.Scene {
 
   public preload(): void {
     const build = this.add.text(10, 10, 'build: ' + process.env.BUILD_TIME, {
-      font: '25px Triomphe',
-      color: '#3B175C'
+      font: '25px geometria_extrabold',
+      color: '#EFDD00'
     });
-    const { centerX, centerY } = this.cameras.main;
-    const sprite = this.add.sprite(centerX, centerY, 'loading');
-    this.add.tween({
-      targets: sprite,
-      rotation: Math.PI * 2,
-      repeat: -1,
-      duration: 2000
-    });
-    const bounds = sprite.getBounds();
-    const text = this.add.text(centerX, bounds.bottom + 50, 'Загрузка...0%', {
-      font: '70px Triomphe',
-      color: '#3B175C'
-    }).setOrigin(.5, .5);
+    const { centerX, height } = this.cameras.main;
+    const bg = this.add.sprite(centerX, height, 'loading').setOrigin(.5, 1);
+    const header = this.add.sprite(centerX, 0, 'loading-header').setOrigin(.5, 0);
+
+    const text = this.add.text(centerX, height - 127, '0%', {
+      font: '36px geometria_extrabold',
+      color: '#EFDD00'
+    }).setOrigin(.5, 1);
 
     this.load.on(Phaser.Loader.Events.PROGRESS, (value: number): void => {
       const percent = Math.round(value * 100);
-      text.setText('Загрузка...' + percent + '%');
+      text.setText(percent + '%');
     }, this);
     this.load.on(Phaser.Loader.Events.COMPLETE, (): void => {
       this.load.removeAllListeners();
-      sprite.destroy();
+      bg.destroy();
+      header.destroy();
       text.destroy();
       build.destroy();
       this.scene.start(this._config.scene);
@@ -72,7 +68,7 @@ class Loading extends Phaser.Scene {
   }
 
   private _createTextures(): void {
-    this._createRectangle(200, 50, 0x000000, 'button');
+    this._createCircle(7.5, 0xEFDD00, 'yellow-circle');
   }
 
   private _createRectangle(width: number, height: number, color: number, key: string): void {

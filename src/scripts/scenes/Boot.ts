@@ -1,11 +1,14 @@
 import axios from 'axios';
 import * as Webfont from 'webfontloader';
-import loading from '../../assets/images/loading.png';
 import Interval from '../actions/Interval';
 import Sounds from '../actions/Sounds';
 import Settings from '../data/Settings';
 import User from '../data/User';
 import PreloadConfig from '../data/PreloadConfig';
+import { screen } from '../types/enums';
+
+import loading from '../../assets/images/loading.png';
+import loadingHeader from '../../assets/images/loading-header.png';
 
 declare global {
   interface Window {
@@ -52,7 +55,10 @@ class Boot extends Phaser.Scene {
   public init(): void {
     Webfont.load({
       custom: {
-        families: ['Triomphe']
+        families: [
+          'geometria_extrabold',
+          'geometria_bold'
+        ]
       },
       active: (): void => {
         this._fonts = true;
@@ -65,6 +71,7 @@ class Boot extends Phaser.Scene {
 
   public preload(): void {
     this.load.image('loading', loading);
+    this.load.image('loading-header', loadingHeader);
   }
 
   public update(): void {
@@ -104,7 +111,9 @@ class Boot extends Phaser.Scene {
       last_name: User.getLastName()
     }).then(res => {
       if (!res.data.error) {
+        !res.data.data.old && Settings.setScreen(screen.RULES_1);
         User.setAttempts(res.data.data.attempts);
+        User.setBalance(res.data.data.balance);
       }
     }).catch(e => console.log(e));
     this._user = true;

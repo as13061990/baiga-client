@@ -6,6 +6,7 @@ class User {
   private _firstname: string;
   private _lastname: string;
   private _attempts: number = 0;
+  private _balance: number = 0;
 
   public getInitData(): string {
     return this._initData;
@@ -53,6 +54,14 @@ class User {
 
   public getAttempts(): number {
     return this._attempts;
+  }
+
+  public setBalance(balance: number): void {
+    this._balance = balance;
+  }
+
+  public getBalance(): number {
+    return this._balance;
   }
 }
 

@@ -1,5 +1,9 @@
 import Settings from '../data/Settings';
 import Main from '../screens/Main';
+import Ratings from '../screens/Ratings';
+import Rules1 from '../screens/Rules1';
+import Rules2 from '../screens/Rules2';
+import Store from '../screens/Store';
 import { screen } from '../types/enums';
 
 class UI extends Phaser.Scene {
@@ -10,16 +14,15 @@ class UI extends Phaser.Scene {
   public create(): void {
     if (Settings.getScreen() === screen.MAIN) {
       new Main(this);
+    } else if (Settings.getScreen() === screen.RULES_1) {
+      new Rules1(this);
+    } else if (Settings.getScreen() === screen.RULES_2) {
+      new Rules2(this);
+    } else if (Settings.getScreen() === screen.RATINGS) {
+      new Ratings(this);
+    } else if (Settings.getScreen() === screen.STORE) {
+      new Store(this);
     }
-  }
-
-  public setGradient(text: Phaser.GameObjects.Text): void {
-    const gradient = text.context.createLinearGradient(0, 0, text.width, text.height);
-    gradient.addColorStop(0, '#9A6AEA');
-    gradient.addColorStop(.2, '#75EEFE');
-    gradient.addColorStop(.5, '#F7BA80');
-    gradient.addColorStop(1, '#AF1572');
-    text.setFill(gradient);
   }
 
   public move(object: Phaser.GameObjects.Sprite | Phaser.GameObjects.Text, target: Iposition = null): void {
