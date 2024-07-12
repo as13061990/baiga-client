@@ -8,6 +8,16 @@ class Settings {
     minHeight: 1650,
     maxHeight: 2500
   }
+  public readonly price = {
+    horse2: 150,
+    horse3: 300,
+    horse4: 750,
+    horse5: 1500,
+    equipment2: 150,
+    equipment3: 300,
+    equipment4: 750,
+    equipment5: 1500
+  }
   private _screen: screen = screen.MAIN;
   private _mobile: boolean = false;
   public sounds: Isounds;

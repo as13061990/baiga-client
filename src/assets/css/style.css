@@ -6,6 +6,10 @@
   font-family: geometria_bold;
   src: url('../fonts/geometria_bold.otf');
 }
+@font-face {
+  font-family: geometria_bolditalic;
+  src: url('../fonts/geometria_bolditalic.otf');
+}
 * {
   margin: 0;
   padding: 0;

@@ -69,6 +69,26 @@ class Loading extends Phaser.Scene {
 
   private _createTextures(): void {
     this._createCircle(7.5, 0xEFDD00, 'yellow-circle');
+
+    const dark = this.add.graphics();
+    dark.fillStyle(0x121212, 1);
+    dark.fillRoundedRect(0, 0, 960, 78, 40);
+    dark.fillStyle(0x121212, 1);
+    const darkTexture = this.add.renderTexture(0, 0, 960, 78);
+    darkTexture.draw(dark, dark.x, dark.y);
+    darkTexture.saveTexture('ratings-dark');
+    darkTexture.destroy();
+    dark.destroy();
+
+    const red = this.add.graphics();
+    red.fillStyle(0xA6192E, 1);
+    red.fillRoundedRect(0, 0, 960, 78, 40);
+    red.fillStyle(0xA6192E, 1);
+    const redTexture = this.add.renderTexture(0, 0, 960, 78);
+    redTexture.draw(red, red.x, red.y);
+    redTexture.saveTexture('ratings-red');
+    redTexture.destroy();
+    red.destroy();
   }
 
   private _createRectangle(width: number, height: number, color: number, key: string): void {

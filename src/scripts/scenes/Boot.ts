@@ -57,7 +57,8 @@ class Boot extends Phaser.Scene {
       custom: {
         families: [
           'geometria_extrabold',
-          'geometria_bold'
+          'geometria_bold',
+          'geometria_bolditalic'
         ]
       },
       active: (): void => {
@@ -114,6 +115,18 @@ class Boot extends Phaser.Scene {
         !res.data.data.old && Settings.setScreen(screen.RULES_1);
         User.setAttempts(res.data.data.attempts);
         User.setBalance(res.data.data.balance);
+        User.setHorse2(res.data.data.horse_2);
+        User.setHorse3(res.data.data.horse_3);
+        User.setHorse4(res.data.data.horse_4);
+        User.setHorse5(res.data.data.horse_5);
+        User.setEquipment2(res.data.data.equipment_2);
+        User.setEquipment3(res.data.data.equipment_3);
+        User.setEquipment4(res.data.data.equipment_4);
+        User.setEquipment5(res.data.data.equipment_5);
+        User.setHorseActive(res.data.data.horse_active);
+        User.setEquipmentActive(res.data.data.equipment_active);
+        
+        Settings.setScreen(screen.STORE);
       }
     }).catch(e => console.log(e));
     this._user = true;

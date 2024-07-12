@@ -27,3 +27,9 @@ interface Isizes {
   width: number;
   height: number;
 }
+interface Irating {
+  place: number;
+  record: number;
+  name: string;
+  self: boolean;
+}
