@@ -125,8 +125,6 @@ class Boot extends Phaser.Scene {
         User.setEquipment5(res.data.data.equipment_5);
         User.setHorseActive(res.data.data.horse_active);
         User.setEquipmentActive(res.data.data.equipment_active);
-        
-        Settings.setScreen(screen.STORE);
       }
     }).catch(e => console.log(e));
     this._user = true;
