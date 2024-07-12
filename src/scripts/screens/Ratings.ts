@@ -45,6 +45,7 @@ class Ratings {
 
   private _getRating(): void {
     axios.post(process.env.API + '/getRating', {
+      init_data: User.getInitData(),
       id: User.getID()
     }).then((res): void => {
       if (!res.data.error) {
