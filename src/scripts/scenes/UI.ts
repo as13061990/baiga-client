@@ -1,6 +1,8 @@
 import Settings from '../data/Settings';
 import Main from '../screens/Main';
+import Pause from '../screens/Pause';
 import Ratings from '../screens/Ratings';
+import Result from '../screens/Result';
 import Rules1 from '../screens/Rules1';
 import Rules2 from '../screens/Rules2';
 import Store from '../screens/Store';
@@ -22,6 +24,10 @@ class UI extends Phaser.Scene {
       new Ratings(this);
     } else if (Settings.getScreen() === screen.STORE) {
       new Store(this);
+    } else if (Settings.getScreen() === screen.RESULT) {
+      new Result(this);
+    } else if (Settings.getScreen() === screen.PAUSE) {
+      new Pause(this);
     }
   }
 

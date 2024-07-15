@@ -4,9 +4,12 @@ import logo from '../../assets/images/logo.png';
 import buttonYellow from '../../assets/images/button-yellow.png';
 import buttonWhite from '../../assets/images/button-white.png';
 import buttonOpacity from '../../assets/images/button-opacity.png';
+import buttonRed from '../../assets/images/button-red.png';
 import btnStore from '../../assets/images/btn-store.png';
 import btnRules from '../../assets/images/btn-rules.png';
 import btnRatings from '../../assets/images/btn-ratings.png';
+import btnResult from '../../assets/images/btn-result.png';
+import btnPause from '../../assets/images/btn-pause.png';
 import coin from '../../assets/images/coin.png';
 import rules1 from '../../assets/images/rules-1.png';
 import rules2 from '../../assets/images/rules-2.png';
@@ -26,6 +29,29 @@ import storeActive from '../../assets/images/store-active.png';
 import storeChoice from '../../assets/images/store-choice.png';
 import equipmentActive from '../../assets/images/equipment-active.png';
 import horseActive from '../../assets/images/horse-active.png';
+import land from '../../assets/images/land.png';
+import corral from '../../assets/images/corral.png';
+import clouds from '../../assets/images/clouds.png';
+import pausePopup from '../../assets/images/pause-popup.png';
+import btnPauseYellow from '../../assets/images/btn-pause-yellow.png';
+import btnPauseRed from '../../assets/images/btn-pause-red.png';
+import tutorial from '../../assets/images/tutorial.png';
+import fence from '../../assets/images/fence.png';
+import scoreBar from '../../assets/images/score-bar.png';
+import balanceBar from '../../assets/images/balance-bar.png';
+import horse1 from '../../assets/images/horse-1.png';
+import horse2 from '../../assets/images/horse-2.png';
+import horse3 from '../../assets/images/horse-3.png';
+import horse4 from '../../assets/images/horse-4.png';
+import horse5 from '../../assets/images/horse-5.png';
+import player1 from '../../assets/images/player-1.png';
+import player2 from '../../assets/images/player-2.png';
+import player3 from '../../assets/images/player-3.png';
+import player4 from '../../assets/images/player-4.png';
+import player5 from '../../assets/images/player-5.png';
+import finish from '../../assets/images/finish.png';
+import opponentPlace from '../../assets/images/opponent-place.png';
+import playerPlace from '../../assets/images/player-place.png';
 
 class PreloadConfig {
   private _data: IpreloadConfig = {
@@ -37,9 +63,12 @@ class PreloadConfig {
       "button-yellow": buttonYellow,
       "button-white": buttonWhite,
       "button-opacity": buttonOpacity,
+      "button-red": buttonRed,
       "btn-store": btnStore,
       "btn-rules": btnRules,
       "btn-ratings": btnRatings,
+      "btn-result": btnResult,
+      "btn-pause": btnPause,
       "coin": coin,
       "rules-1": rules1,
       "rules-2": rules2,
@@ -59,6 +88,29 @@ class PreloadConfig {
       "store-choice": storeChoice,
       "equipment-active": equipmentActive,
       "horse-active": horseActive,
+      "land": land,
+      "corral": corral,
+      "clouds": clouds,
+      "pause-popup": pausePopup,
+      "btn-pause-yellow": btnPauseYellow,
+      "btn-pause-red": btnPauseRed,
+      "tutorial": tutorial,
+      "fence": fence,
+      "score-bar": scoreBar,
+      "balance-bar": balanceBar,
+      "horse-1": horse1,
+      "horse-2": horse2,
+      "horse-3": horse3,
+      "horse-4": horse4,
+      "horse-5": horse5,
+      "player-1": player1,
+      "player-2": player2,
+      "player-3": player3,
+      "player-4": player4,
+      "player-5": player5,
+      "finish": finish,
+      "opponent-place": opponentPlace,
+      "player-place": playerPlace,
 
     },
     "spritesheets": {

@@ -111,6 +111,10 @@ class Utils {
       window.scrollTo(0, 0);
     });
   }
+
+  public static formatSum(sum: number): string {
+    return sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
 }
 
 export default Utils;

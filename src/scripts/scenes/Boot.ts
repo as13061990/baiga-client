@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as Webfont from 'webfontloader';
-import Interval from '../actions/Interval';
 import Sounds from '../actions/Sounds';
 import Settings from '../data/Settings';
 import User from '../data/User';
@@ -58,7 +57,8 @@ class Boot extends Phaser.Scene {
         families: [
           'geometria_extrabold',
           'geometria_bold',
-          'geometria_bolditalic'
+          'geometria_bolditalic',
+          'Geometria-ExtraBoldItalic'
         ]
       },
       active: (): void => {
@@ -66,7 +66,6 @@ class Boot extends Phaser.Scene {
       }
     });
     Settings.sounds = new Sounds(this);
-    Settings.interval = new Interval(this);
     this._checkUser();
   }
 

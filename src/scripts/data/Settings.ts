@@ -1,4 +1,4 @@
-import Interval from '../actions/Interval';
+import Session from './Session';
 import { screen } from '../types/enums';
 
 class Settings {
@@ -18,10 +18,12 @@ class Settings {
     equipment4: 750,
     equipment5: 1500
   }
+  public readonly lapDistance = 70000;
+  public readonly laps = 10;
+  public readonly co = .2;
   private _screen: screen = screen.MAIN;
   private _mobile: boolean = false;
   public sounds: Isounds;
-  public interval: Interval;
   private _preloadConfig: IpreloadConfig;
 
   public setScreen(screen: screen): screen {
@@ -47,6 +49,10 @@ class Settings {
 
   public getPreloadConfig(): IpreloadConfig {
     return this._preloadConfig;
+  }
+
+  public getSpeed(delta: number): number {
+    return delta / 100 * Session.getSpeed();
   }
 }
 

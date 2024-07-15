@@ -69,6 +69,7 @@ class Loading extends Phaser.Scene {
 
   private _createTextures(): void {
     this._createCircle(7.5, 0xEFDD00, 'yellow-circle');
+    this._createRectangle(225, 5, 0x78B6D8, 'bar-line');
 
     const dark = this.add.graphics();
     dark.fillStyle(0x121212, 1);

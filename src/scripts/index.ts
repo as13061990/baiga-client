@@ -44,6 +44,6 @@ const config: Phaser.Types.Core.GameConfig = {
     }
   },
   render: { transparent: true },
-  scene: [ Boot, Loading, UI, Game ]
+  scene: [ Boot, Loading, Game, UI ]
 }
 new Phaser.Game(config);

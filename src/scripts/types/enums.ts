@@ -4,6 +4,8 @@ enum screen {
   RULES_2,
   RATINGS,
   STORE,
+  RESULT,
+  PAUSE,
   
 }
 

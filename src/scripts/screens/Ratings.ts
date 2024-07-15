@@ -1,9 +1,9 @@
 import axios from 'axios';
+import UI from '../scenes/UI';
 import Button from '../components/Button';
 import Settings from '../data/Settings';
-import UI from '../scenes/UI';
-import { screen } from '../types/enums';
 import User from '../data/User';
+import { screen } from '../types/enums';
 
 class Ratings {
   constructor(scene: UI) {
