@@ -273,7 +273,7 @@ class Store {
 
   private _createEquipment(): void {
     const { centerX, width } = this._scene.cameras.main;
-    const equipmentX = 175, buttonX = width - 205;
+    const equipmentX = 185, buttonX = width - 205;
     const buttons = [];
     const icon1 = this._scene.add.sprite(equipmentX, 636, 'equipment-icon-1');
     const icon2 = this._scene.add.sprite(equipmentX, icon1.getBounds().bottom + 95, 'equipment-icon-2');
