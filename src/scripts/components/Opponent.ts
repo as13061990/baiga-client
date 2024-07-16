@@ -31,8 +31,8 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
   }
 
   private _getSpeed(): number {
-    if (this._level === 2) return 60;
-    if (this._level === 3) return 70;
+    if (this._level === 2) return 50;
+    if (this._level === 3) return 65;
     if (this._level === 4) return 80;
     return 90;
   }

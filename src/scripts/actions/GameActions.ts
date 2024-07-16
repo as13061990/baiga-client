@@ -12,9 +12,10 @@ import Fence from '../components/Fence';
 import Player from '../components/Player';
 import Opponent from '../components/Opponent';
 import Lap from '../components/Lap';
+import Coin from '../components/Coin';
 import { screen } from '../types/enums';
 
-const MIN_SPEED = 40;
+const MIN_SPEED = 30;
 
 class GameActions {
   constructor(scene: Game) {
@@ -38,6 +39,7 @@ class GameActions {
     new Clouds(this._scene);
     new Fence(this._scene);
     this._scene.laps = this._scene.physics.add.group();
+    this._scene.coins = this._scene.physics.add.group();
     this._scene.opponents = this._scene.physics.add.group();
     this._scene.opponent1 = new Opponent(this._scene, 2);
     this._scene.opponent2 = new Opponent(this._scene, 3);
@@ -87,6 +89,16 @@ class GameActions {
       this._scene.laps,
       this._lapsCollision.bind(this)
     );
+    this._scene.physics.add.overlap(
+      this._scene.player,
+      this._scene.coins,
+      this._playerCoinsCollision.bind(this)
+    );
+    this._scene.physics.add.overlap(
+      this._scene.opponents,
+      this._scene.coins,
+      this._opponentsCoinsCollision.bind(this)
+    );
   }
 
   private _lapsCollision(): void {
@@ -97,6 +109,18 @@ class GameActions {
       return;
     }
     Session.setLap(Session.getLap() + 1);
+  }
+
+  private _playerCoinsCollision(player: Player, coin: Coin): void {
+    const coins = 5;
+    const score = 5;
+    Session.setCoins(Session.getCoins() + coins);
+    Session.setScore(Session.getScore() + score);
+    coin.destroy();
+  }
+
+  private _opponentsCoinsCollision(opponent: Opponent, coin: Coin): void {
+    coin.destroy();
   }
 
   private _gameOver(): void {
@@ -121,18 +145,28 @@ class GameActions {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
     const e = User.getEquipmentActive();
-    const co = delta / 90;
+    const co = delta / 100;
     const minus = (e === 5 ? 2 : e === 4 ? 2.5 : e === 3 ? 3 : e === 2 ? 3.5 : 4) * co;
     const speed = Session.getSpeed() - minus < MIN_SPEED ? MIN_SPEED : Session.getSpeed() - minus;
     Session.setSpeed(speed);
     Session.plusDistance(Session.getSpeed());
-
     const lap = Math.ceil(Session.getDistance() / Settings.lapDistance);
 
     if (lap > Session.getLap() && !Session.getLapMark()) {
       Session.setLapMark(true);
       new Lap(this._scene);
     }
+  }
+
+  public createCoin(): void {
+    const place = this._scene.player.getPlace();
+    const delay = Phaser.Math.Between(2000, 3000);
+    const part = delay / 5;
+    this._scene.time.addEvent({ delay: delay + part * place, callback: (): void => {
+      if (Session.isOver()) return;
+      new Coin(this._scene);
+      this.createCoin();
+    }, loop: false });
   }
 }
 

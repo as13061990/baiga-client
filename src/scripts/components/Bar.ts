@@ -85,6 +85,7 @@ class Bar extends Phaser.GameObjects.Sprite {
         text.destroy();
         loop.destroy();
         Session.setStart();
+        this.scene.actions.createCoin();
       }
     }, loop: true });
   }

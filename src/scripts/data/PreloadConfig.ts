@@ -52,6 +52,7 @@ import player5 from '../../assets/images/player-5.png';
 import finish from '../../assets/images/finish.png';
 import opponentPlace from '../../assets/images/opponent-place.png';
 import playerPlace from '../../assets/images/player-place.png';
+import gameCoin from '../../assets/images/game-coin.png';
 
 class PreloadConfig {
   private _data: IpreloadConfig = {
@@ -111,6 +112,7 @@ class PreloadConfig {
       "finish": finish,
       "opponent-place": opponentPlace,
       "player-place": playerPlace,
+      "game-coin": gameCoin,
 
     },
     "spritesheets": {
