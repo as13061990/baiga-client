@@ -32,10 +32,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       font: '40px geometria_bold',
       color: '#EFDD00'
     }).setOrigin(.5, 0).setDepth(this.depth).setAlpha(0);
-
-    // this.scene.time.addEvent({ delay: 1000, callback: (): void => {
-    //   this.anims.get('horse-' + User.getHorseActive()).frameRate = Session.getSpeed() / 6;
-    // }, loop: true });
   }
 
   private _setPlace(): void {
