@@ -15,6 +15,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   private _tween: boolean = false;
 
   private _build(): void {
+    this.anims.create({
+      key: 'horse-' + User.getHorseActive(),
+      frames: this.anims.generateFrameNumbers('horse-' + User.getHorseActive(), { start: 0, end: 6 }),
+      frameRate: 12,
+      repeat: -1
+    });
     this.setOrigin(.5, 1);
     this.setDepth(1);
     this.scene.add.existing(this);
@@ -26,6 +32,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       font: '40px geometria_bold',
       color: '#EFDD00'
     }).setOrigin(.5, 0).setDepth(this.depth).setAlpha(0);
+
+    // this.scene.time.addEvent({ delay: 1000, callback: (): void => {
+    //   this.anims.get('horse-' + User.getHorseActive()).frameRate = Session.getSpeed() / 6;
+    // }, loop: true });
   }
 
   private _setPlace(): void {
@@ -48,9 +58,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     return place;
   }
 
-  protected preUpdate(): void {
+  protected preUpdate(time: number, delta: number): void {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
+    super.preUpdate(time, delta);
+    const msPerFrame = 140 - Math.round(Session.getSpeed() * .6);
+    this.anims.msPerFrame = msPerFrame;
+    this.anims.play('horse-' + User.getHorseActive(), true);
     this._setPlace();
     this._horseman.setX(this.getBounds().centerX + 46);
     this._placeIcon.setX(this.getBounds().centerX + 75);

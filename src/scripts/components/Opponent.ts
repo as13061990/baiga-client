@@ -18,6 +18,12 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
   private _tween: boolean = false;
 
   private _build(): void {
+    this.anims.create({
+      key: this.texture.key,
+      frames: this.anims.generateFrameNumbers(this.texture.key, { start: 0, end: 6 }),
+      frameRate: 7 + this._level,
+      repeat: -1
+    });
     this.setOrigin(.5, 1);
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
@@ -63,9 +69,11 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
     return place;
   }
 
-  protected preUpdate(): void {
+  protected preUpdate(time: number, delta: number): void {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
+    super.preUpdate(time, delta);
+    this.anims.play(this.texture.key, true);
     this._setPlace();
     this._distance += this._getSpeed();
     const distance = Session.getDistance() - this._distance;

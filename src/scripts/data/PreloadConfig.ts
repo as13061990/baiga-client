@@ -99,11 +99,6 @@ class PreloadConfig {
       "fence": fence,
       "score-bar": scoreBar,
       "balance-bar": balanceBar,
-      "horse-1": horse1,
-      "horse-2": horse2,
-      "horse-3": horse3,
-      "horse-4": horse4,
-      "horse-5": horse5,
       "player-1": player1,
       "player-2": player2,
       "player-3": player3,
@@ -116,7 +111,31 @@ class PreloadConfig {
 
     },
     "spritesheets": {
-
+      "horse-1": {
+        asset: horse1,
+        width: 450,
+        height: 265
+      },
+      "horse-2": {
+        asset: horse2,
+        width: 450,
+        height: 265
+      },
+      "horse-3": {
+        asset: horse3,
+        width: 450,
+        height: 265
+      },
+      "horse-4": {
+        asset: horse4,
+        width: 450,
+        height: 265
+      },
+      "horse-5": {
+        asset: horse5,
+        width: 450,
+        height: 265
+      },
     },
     "sounds": {
       
