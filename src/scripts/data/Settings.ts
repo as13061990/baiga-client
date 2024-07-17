@@ -5,7 +5,7 @@ class Settings {
 
   public readonly sizes = {
     width: 1080,
-    minHeight: 1650,
+    minHeight: 1600,
     maxHeight: 2500
   }
   public readonly price = {
