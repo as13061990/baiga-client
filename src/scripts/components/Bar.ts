@@ -55,6 +55,7 @@ class Bar extends Phaser.GameObjects.Sprite {
   private _pause(): void {
     if (!Session.isStarted()) return;
     if (Session.isOver()) return;
+    Settings.sounds.pauseMusic();
     Settings.setScreen(screen.PAUSE);
     this.scene.scene.pause();
     this.scene.scene.launch('UI');

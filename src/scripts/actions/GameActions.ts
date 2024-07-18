@@ -28,7 +28,7 @@ class GameActions {
   public init(): void {
     this._createWorld();
     this._createTutorial();
-    this._createClickZone();
+    this._createControls();
     this._setCollisions();
   }
 
@@ -56,7 +56,7 @@ class GameActions {
     const bg = this._scene.add.rectangle(centerX, centerY, width, height, 0x000000, .85).setDepth(depth);
     bg.setInteractive({ cursor: 'default' });
     const tutorial = this._scene.add.sprite(centerX, Utils.getStretchPoint(height, 100, 16.9), 'tutorial').setOrigin(.5, 0).setDepth(depth);
-    const platform = Settings.isMobile() ? 'Тапайте по экрану' : 'Кликайте мышкой';
+    const platform = Settings.isMobile() ? 'Тапайте по экрану' : 'Нажимайте на пробел';
     const text = platform + ', чтобы увеличить\nскорость лошади.\n\nСобирайте монетки, покупайте\nновых скакунов и экипировку.\n\nПридите к финишу первым!';
     const descr = this._scene.add.text(centerX, tutorial.getBounds().bottom + 60, text, {
       font: '44px geometria_bold',
@@ -79,10 +79,15 @@ class GameActions {
     }
   }
 
-  private _createClickZone(): void {
-    const { centerX, centerY, width, height } = this._scene.cameras.main;
-    const zone = new Zone(this._scene, centerX, centerY, width, height);
-    zone.clickCallback = this._click.bind(this);
+  private _createControls(): void {
+    if (Settings.isMobile()) {
+      const { centerX, centerY, width, height } = this._scene.cameras.main;
+      const zone = new Zone(this._scene, centerX, centerY, width, height);
+      zone.clickCallback = this._click.bind(this);
+    } else {
+      const cursors = this._scene.input.keyboard.createCursorKeys();
+      cursors.space.on('down', this._click.bind(this));
+    }
   }
   
   private _setCollisions(): void {

@@ -42,6 +42,7 @@ class Pause {
   }
 
   private _resume(): void {
+    Settings.sounds.resumeMusic();
     this._scene.scene.resume('Game');
     this._scene.scene.stop();
   }
