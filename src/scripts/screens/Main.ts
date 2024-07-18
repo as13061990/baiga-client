@@ -14,6 +14,7 @@ class Main {
   private _scene: UI;
 
   private _build(): void {
+    Settings.sounds.playMusic('menu');
     const { width, centerX, height } = this._scene.cameras.main;
     this._scene.add.sprite(centerX, height, 'bg-main').setOrigin(.5, 1);
     this._scene.add.sprite(centerX, 100, 'logo').setOrigin(.5, 0);

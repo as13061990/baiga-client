@@ -18,6 +18,8 @@ class Result {
   private _build(): void {
     const place = Session.getPlace();
     const attempts = User.getAttempts();
+    Settings.sounds.stopMusic();
+    Settings.sounds.play(place > 3 ? 'win-4-5' : 'win-1-3');
 
     if (place === 1) {
       Session.setScore(Session.getScore() + 100);

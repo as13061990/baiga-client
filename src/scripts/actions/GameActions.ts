@@ -33,6 +33,7 @@ class GameActions {
   }
 
   private _createWorld(): void {
+    Settings.sounds.stopMusic();
     const { centerX, height } = this._scene.cameras.main;
     this._scene.add.sprite(centerX, height, 'land').setOrigin(.5, 1);
     new Corral(this._scene);
@@ -74,6 +75,7 @@ class GameActions {
       descr.destroy();
       go.destroy();
       this._bar.start();
+      Settings.sounds.play('start');
     }
   }
 
@@ -117,6 +119,7 @@ class GameActions {
     Session.setCoins(Session.getCoins() + coins);
     Session.setScore(Session.getScore() + score);
     coin.destroy();
+    Settings.sounds.play('score');
   }
 
   private _opponentsCoinsCollision(opponent: Opponent, coin: Coin): void {
@@ -155,6 +158,7 @@ class GameActions {
     if (lap > Session.getLap() && !Session.getLapMark()) {
       Session.setLapMark(true);
       new Lap(this._scene);
+      lap === Settings.laps + 1 && Settings.sounds.play('crowd');
     }
   }
 

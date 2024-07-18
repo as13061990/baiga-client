@@ -86,6 +86,9 @@ class Bar extends Phaser.GameObjects.Sprite {
         loop.destroy();
         Session.setStart();
         this.scene.actions.createCoin();
+        Settings.sounds.play('shoot');
+        Settings.sounds.play('horses');
+        Settings.sounds.playMusic('hooves');
       }
     }, loop: true });
   }

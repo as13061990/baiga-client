@@ -54,6 +54,17 @@ import opponentPlace from '../../assets/images/opponent-place.png';
 import playerPlace from '../../assets/images/player-place.png';
 import gameCoin from '../../assets/images/game-coin.png';
 
+import win13 from '../../assets/sounds/win-1-3.mp3';
+import win45 from '../../assets/sounds/win-4-5.mp3';
+import menu from '../../assets/sounds/menu.mp3';
+import score from '../../assets/sounds/score.mp3';
+import crowd from '../../assets/sounds/crowd.mp3';
+import start from '../../assets/sounds/start.mp3';
+import shoot from '../../assets/sounds/shoot.mp3';
+import horses from '../../assets/sounds/horses.mp3';
+import hooves from '../../assets/sounds/hooves.mp3';
+import shop from '../../assets/sounds/shop.mp3';
+
 class PreloadConfig {
   private _data: IpreloadConfig = {
     "scene": "UI",
@@ -138,7 +149,17 @@ class PreloadConfig {
       },
     },
     "sounds": {
-      
+      "win-1-3": win13,
+      "win-4-5": win45,
+      "menu": menu,
+      "score": score,
+      "crowd": crowd,
+      "start": start,
+      "shoot": shoot,
+      "horses": horses,
+      "hooves": hooves,
+      "shop": shop,
+
     }
   }
 

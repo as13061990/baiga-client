@@ -83,6 +83,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.horse2);
     buy && this.setHorseActive(2);
     buy && this._buyHorse(2);
+    buy && Settings.sounds.play('shop');
     this._horse2 = value;
   }
 
@@ -94,6 +95,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.horse3);
     buy && this.setHorseActive(3);
     buy && this._buyHorse(3);
+    buy && Settings.sounds.play('shop');
     this._horse3 = value;
   }
 
@@ -105,6 +107,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.horse4);
     buy && this.setHorseActive(4);
     buy && this._buyHorse(4);
+    buy && Settings.sounds.play('shop');
     this._horse4 = value;
   }
 
@@ -116,6 +119,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.horse5);
     buy && this.setHorseActive(5);
     buy && this._buyHorse(5);
+    buy && Settings.sounds.play('shop');
     this._horse5 = value;
   }
 
@@ -127,6 +131,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.equipment2);
     buy && this.setEquipmentActive(2);
     buy && this._buyEquipment(2);
+    buy && Settings.sounds.play('shop');
     this._equipment2 = value;
   }
 
@@ -138,6 +143,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.equipment3);
     buy && this.setEquipmentActive(3);
     buy && this._buyEquipment(3);
+    buy && Settings.sounds.play('shop');
     this._equipment3 = value;
   }
 
@@ -149,6 +155,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.equipment4);
     buy && this.setEquipmentActive(4);
     buy && this._buyEquipment(4);
+    buy && Settings.sounds.play('shop');
     this._equipment4 = value;
   }
 
@@ -160,6 +167,7 @@ class User {
     buy && this.setBalance(this.getBalance() - Settings.price.equipment5);
     buy && this.setEquipmentActive(5);
     buy && this._buyEquipment(5);
+    buy && Settings.sounds.play('shop');
     this._equipment5 = value;
   }
 
