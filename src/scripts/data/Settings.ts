@@ -19,7 +19,7 @@ class Settings {
     equipment5: 1500
   }
   public readonly lapDistance = 40000;
-  public readonly laps = 10;
+  public readonly laps = 5;
   public readonly co = .2;
   private _screen: screen = screen.MAIN;
   private _mobile: boolean = false;
