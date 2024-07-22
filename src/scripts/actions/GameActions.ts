@@ -141,9 +141,8 @@ class GameActions {
   private _click(): void {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
-    const a = User.getHorseActive();
     const e = User.getEquipmentActive();
-    const max = a === 5 ? 100 : a === 4 ? 90 : a === 3 ? 80 : a === 2 ? 70 : 60;
+    const max = Settings.getMaxSpeed();
     const points = e === 5 ? 12 : e === 4 ? 11 : e === 3 ? 10 : e === 2 ? 9 : 8;
     const speed = Session.getSpeed() + points > max ? max : Session.getSpeed() + points;
     Session.setSpeed(speed);
@@ -156,7 +155,7 @@ class GameActions {
     const co = delta / 100;
     const minus = (e === 5 ? 2 : e === 4 ? 2.5 : e === 3 ? 3 : e === 2 ? 3.5 : 4) * co;
     const speed = Session.getSpeed() - minus < MIN_SPEED ? MIN_SPEED : Session.getSpeed() - minus;
-    Session.setSpeed(speed);
+    Session.setSpeed(Settings.measuring ? Settings.getMaxSpeed() : speed);
     Session.plusDistance(Session.getSpeed());
     const lap = Math.ceil(Session.getDistance() / Settings.lapDistance);
 
@@ -169,7 +168,8 @@ class GameActions {
 
   public createCoin(): void {
     const place = this._scene.player.getPlace();
-    const delay = Phaser.Math.Between(2000, 3000);
+    const min = 2000, max = 3000;
+    const delay = Settings.measuring ? min : Phaser.Math.Between(min, max);
     const part = delay / 5;
     this._scene.time.addEvent({ delay: delay + part * place, callback: (): void => {
       if (Session.isOver()) return;

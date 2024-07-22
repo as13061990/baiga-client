@@ -150,6 +150,11 @@ class Result {
   }
 
   private _sendResult(): void {
+    // console.log({
+    //   score: Session.getScore(),
+    //   coins: Session.getCoins(),
+    //   horse: User.getHorseActive()
+    // });
     axios.post(process.env.API + '/sendResult', {
       init_data: User.getInitData(),
       id: User.getID(),

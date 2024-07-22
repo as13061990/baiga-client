@@ -1,4 +1,5 @@
 import Session from './Session';
+import User from './User';
 import { screen } from '../types/enums';
 
 class Settings {
@@ -21,6 +22,8 @@ class Settings {
   public readonly lapDistance = 40000;
   public readonly laps = 5;
   public readonly co = .2;
+  public readonly measuring = false;
+
   private _screen: screen = screen.MAIN;
   private _mobile: boolean = false;
   public sounds: Isounds;
@@ -53,6 +56,11 @@ class Settings {
 
   public getSpeed(delta: number): number {
     return delta / 100 * Session.getSpeed();
+  }
+
+  public getMaxSpeed(): number {
+    const a = User.getHorseActive();
+    return a === 5 ? 100 : a === 4 ? 90 : a === 3 ? 80 : a === 2 ? 70 : 60;
   }
 }
 
