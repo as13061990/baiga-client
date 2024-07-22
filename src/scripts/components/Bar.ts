@@ -20,6 +20,10 @@ class Bar extends Phaser.GameObjects.Sprite {
   private _balance: Phaser.GameObjects.Text;
   private _coin: Phaser.GameObjects.Sprite;
   private _sound: Phaser.GameObjects.Sprite;
+  private _accelerationIcon: Phaser.GameObjects.Sprite;
+  private _acceleration: Phaser.GameObjects.Text;
+  private _shieldIcon: Phaser.GameObjects.Sprite;
+  private _shield: Phaser.GameObjects.Text;
 
   private _build(): void {
     this.scene.add.existing(this);
@@ -57,6 +61,18 @@ class Bar extends Phaser.GameObjects.Sprite {
       color: '#A6192E'
     }).setOrigin(.5, .5);
     this._coin = this.scene.add.sprite(this._balance.getBounds().right + 10, this._balance.getBounds().centerY, 'coin').setScale(.66).setOrigin(0, .5);
+
+    this._accelerationIcon = this.scene.add.sprite(width - 85, 266, 'acceleration');
+    this._acceleration = this.scene.add.text(this._accelerationIcon.x - 5, this._accelerationIcon.getBounds().bottom + 10, Utils.convertTimeSeconds(Session.getAcceleration()), {
+      font: '32px geometria_bold',
+      color: '#960A25'
+    }).setOrigin(.5, 0);
+    
+    this._shieldIcon = this.scene.add.sprite(width - 91, 262, 'shield').setScale(.817);
+    this._shield = this.scene.add.text(this._shieldIcon.x, this._shieldIcon.getBounds().bottom + 10, Utils.convertTimeSeconds(Session.getShield()), {
+      font: '32px geometria_bold',
+      color: '#960A25'
+    }).setOrigin(.5, 0);
   }
 
   private _pause(): void {
@@ -104,7 +120,7 @@ class Bar extends Phaser.GameObjects.Sprite {
         text.destroy();
         loop.destroy();
         Session.setStart();
-        this.scene.actions.createCoin();
+        this.scene.actions.start();
         Settings.sounds.play('shoot');
         Settings.sounds.play('horses');
         Settings.sounds.playMusic('hooves');
@@ -126,6 +142,36 @@ class Bar extends Phaser.GameObjects.Sprite {
     if (balance !== this._balance.text) {
       this._balance.setText(balance);
       this._coin.setX(this._balance.getBounds().right + 10);
+    }
+
+    if (Session.getAcceleration() > 0 && !this._acceleration.visible) {
+      this._accelerationIcon.setVisible(true);
+      this._acceleration.setVisible(true);
+    }
+
+    if (Session.getAcceleration() === 0 && this._acceleration.visible) {
+      this._accelerationIcon.setVisible(false);
+      this._acceleration.setVisible(false);
+    }
+
+    if (Session.getAcceleration() > 0) {
+      const acceleration = Utils.convertTimeSeconds(Session.getAcceleration());
+      acceleration !== this._acceleration.text && this._acceleration.setText(acceleration);
+    }
+
+    if (Session.getShield() > 0 && !this._shield.visible) {
+      this._shieldIcon.setVisible(true);
+      this._shield.setVisible(true);
+    }
+
+    if (Session.getShield() === 0 && this._shield.visible) {
+      this._shieldIcon.setVisible(false);
+      this._shield.setVisible(false);
+    }
+
+    if (Session.getShield() > 0) {
+      const shield = Utils.convertTimeSeconds(Session.getShield());
+      shield !== this._shield.text && this._shield.setText(shield);
     }
   }
 }

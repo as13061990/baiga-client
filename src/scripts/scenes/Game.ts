@@ -19,7 +19,8 @@ class Game extends Phaser.Scene {
   public opponents: Phaser.Physics.Arcade.Group;
   public laps: Phaser.Physics.Arcade.Group;
   public coins: Phaser.Physics.Arcade.Group;
-
+  public boosters: Phaser.Physics.Arcade.Group;
+  
   public init(): void {
     Session.clear();
   }

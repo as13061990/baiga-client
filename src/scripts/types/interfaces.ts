@@ -33,3 +33,9 @@ interface Irating {
   name: string;
   self: boolean;
 }
+interface IobjectsPull {
+  acceleration: boolean;
+  shield: boolean;
+  dirt: boolean;
+  obstacle: boolean;
+}

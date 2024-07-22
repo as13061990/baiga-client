@@ -60,7 +60,25 @@ class Settings {
 
   public getMaxSpeed(): number {
     const a = User.getHorseActive();
-    return a === 5 ? 100 : a === 4 ? 90 : a === 3 ? 80 : a === 2 ? 70 : 60;
+    const result = a === 5 ? 100 : a === 4 ? 90 : a === 3 ? 80 : a === 2 ? 70 : 60;
+    const dirt = Session.getDirt() > 0 ? 10 : 0;
+    return result - dirt;
+  }
+
+  public getAccelerationDelay(): number {
+    return Phaser.Math.Between(25, 35);
+  }
+
+  public getShieldDelay(): number {
+    return Phaser.Math.Between(30, 40);
+  }
+
+  public getDirtDelay(): number {
+    return Phaser.Math.Between(15, 25);
+  }
+
+  public getObstacleDelay(): number {
+    return Phaser.Math.Between(30, 40);
   }
 }
 

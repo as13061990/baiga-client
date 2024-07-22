@@ -2,6 +2,8 @@ import Game from '../scenes/Game';
 import Session from '../data/Session';
 import Settings from '../data/Settings';
 
+const DIRT_ALPHA = .7;
+
 class Opponent extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Game, level: 2 | 3 | 4 | 5) {
     super(scene, 144, scene.cameras.main.height - 212, 'horse-' + Phaser.Math.Between(1, 5));
@@ -16,6 +18,7 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
   private _level: 2 | 3 | 4 | 5;
   private _distance: number = 0;
   private _tween: boolean = false;
+  private _lowSpeed: boolean = false;
 
   private _build(): void {
     this.anims.create({
@@ -37,10 +40,11 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
   }
 
   private _getSpeed(): number {
-    if (this._level === 2) return 50;
-    if (this._level === 3) return 65;
-    if (this._level === 4) return 80;
-    return 90;
+    const low = this._lowSpeed ? 10 : 0;
+    if (this._level === 2) return 50 - low;
+    if (this._level === 3) return 65 - low;
+    if (this._level === 4) return 80 - low;
+    return 90 - low;
   }
 
   private _setPlace(): void {
@@ -53,11 +57,6 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
     });
   }
 
-
-  public getDistance(): number {
-    return this._distance;
-  }
-
   private _getPlace(): number {
     let place = 1;
     const distance = this._distance;
@@ -67,6 +66,17 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
     if (this.scene.opponent4?.getDistance() > distance && this._level !== 5) place++;
     if (Session.getDistance() > distance) place++;
     return place;
+  }
+
+  public getDistance(): number {
+    return this._distance;
+  }
+
+  public setLowSpeed(): void {
+    this._lowSpeed = true;
+    this.scene.time.addEvent({ delay: 5000, callback: (): void => {
+      this._lowSpeed = false;
+    }, loop: false });
   }
 
   protected preUpdate(time: number, delta: number): void {
@@ -84,6 +94,14 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
     this._placeText.setX(this._placeIcon.x);
     const place = this._getPlace().toString();
     place !== this._placeText.text && this._placeText.setText(place);
+
+    if (this._lowSpeed && this.alpha !== DIRT_ALPHA) {
+      this.setAlpha(DIRT_ALPHA);
+      this._horseman.setAlpha(DIRT_ALPHA);
+    } else if (!this._lowSpeed && this.alpha === DIRT_ALPHA) {
+      this.setAlpha(1);
+      this._horseman.setAlpha(1);
+    }
   }
 }
 

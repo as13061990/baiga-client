@@ -55,6 +55,11 @@ import playerPlace from '../../assets/images/player-place.png';
 import gameCoin from '../../assets/images/game-coin.png';
 import soundEnable from '../../assets/images/sound-enable.png';
 import soundDisable from '../../assets/images/sound-disable.png';
+import acceleration from '../../assets/images/acceleration.png';
+import shield from '../../assets/images/shield.png';
+import dirt from '../../assets/images/dirt.png';
+import stone from '../../assets/images/stone.png';
+import branch from '../../assets/images/branch.png';
 
 import win13 from '../../assets/sounds/win-1-3.mp3';
 import win45 from '../../assets/sounds/win-4-5.mp3';
@@ -123,6 +128,11 @@ class PreloadConfig {
       "game-coin": gameCoin,
       "sound-enable": soundEnable,
       "sound-disable": soundDisable,
+      "acceleration": acceleration,
+      "shield": shield,
+      "dirt": dirt,
+      "stone": stone,
+      "branch": branch,
 
     },
     "spritesheets": {

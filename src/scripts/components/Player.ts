@@ -2,6 +2,9 @@ import Game from '../scenes/Game';
 import Session from '../data/Session';
 import User from '../data/User';
 
+const DIRT_ALPHA = .7;
+const FLASH_ALPHA = .5;
+
 class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Game) {
     super(scene, 144, scene.cameras.main.height - 212, 'horse-' + User.getHorseActive());
@@ -54,6 +57,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     return place;
   }
 
+  public flash(): void {
+    let time = 0;
+    const loop = this.scene.time.addEvent({ delay: 100, callback: (): void => {
+      time++;
+      this.setAlpha(this.alpha === FLASH_ALPHA ? 1 : FLASH_ALPHA);
+      this._horseman.setAlpha(this.alpha);
+      if (time >= 14) {
+        loop.destroy();
+        this.setAlpha(1);
+        this._horseman.setAlpha(1);
+      }
+    }, loop: true });
+  }
+
   protected preUpdate(time: number, delta: number): void {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
@@ -67,6 +84,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this._placeText.setX(this._placeIcon.x);
     const place = this.getPlace().toString();
     place !== this._placeText.text && this._placeText.setText(place);
+
+    if (Session.getDirt() > 0 && this.alpha !== DIRT_ALPHA) {
+      this.setAlpha(DIRT_ALPHA);
+      this._horseman.setAlpha(DIRT_ALPHA);
+    } else if (Session.getDirt() === 0 && this.alpha === DIRT_ALPHA) {
+      this.setAlpha(1);
+      this._horseman.setAlpha(1);
+    }
   }
 }
 

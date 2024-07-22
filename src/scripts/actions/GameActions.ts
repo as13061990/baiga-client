@@ -13,7 +13,8 @@ import Player from '../components/Player';
 import Opponent from '../components/Opponent';
 import Lap from '../components/Lap';
 import Coin from '../components/Coin';
-import { screen } from '../types/enums';
+import Booster from '../components/Booster';
+import { screen, typeObject } from '../types/enums';
 
 const MIN_SPEED = 30;
 
@@ -30,6 +31,14 @@ class GameActions {
     this._createTutorial();
     this._createControls();
     this._setCollisions();
+
+    const cursors = this._scene.input.keyboard.createCursorKeys();
+    cursors.shift.on('down', (): void => {
+      // Session.plusAcceleration(10);
+      // Session.plusShield(10);
+      // Session.plusDirt(5);
+      // this._scene.player.flash();
+    });
   }
 
   private _createWorld(): void {
@@ -41,6 +50,7 @@ class GameActions {
     new Fence(this._scene);
     this._scene.laps = this._scene.physics.add.group();
     this._scene.coins = this._scene.physics.add.group();
+    this._scene.boosters = this._scene.physics.add.group();
     this._scene.opponents = this._scene.physics.add.group();
     this._scene.opponent1 = new Opponent(this._scene, 2);
     this._scene.opponent2 = new Opponent(this._scene, 3);
@@ -83,10 +93,10 @@ class GameActions {
     if (Settings.isMobile()) {
       const { centerX, centerY, width, height } = this._scene.cameras.main;
       const zone = new Zone(this._scene, centerX, centerY, width, height);
-      zone.clickCallback = this._click.bind(this);
+      zone.clickCallback = this._press.bind(this);
     } else {
       const cursors = this._scene.input.keyboard.createCursorKeys();
-      cursors.space.on('down', this._click.bind(this));
+      cursors.space.on('down', this._press.bind(this));
     }
   }
   
@@ -105,6 +115,16 @@ class GameActions {
       this._scene.opponents,
       this._scene.coins,
       this._opponentsCoinsCollision.bind(this)
+    );
+    this._scene.physics.add.overlap(
+      this._scene.player,
+      this._scene.boosters,
+      this._playerBoostersCollision.bind(this)
+    );
+    this._scene.physics.add.overlap(
+      this._scene.opponents,
+      this._scene.boosters,
+      this._opponentsBoostersCollision.bind(this)
     );
   }
 
@@ -131,6 +151,52 @@ class GameActions {
     coin.destroy();
   }
 
+  private _playerBoostersCollision(player: Player, booster: Booster): void {
+    if (!booster.isActive()) return;
+    booster.setDisable();
+
+    if (booster.getType() === 'acceleration') {
+      Session.plusAcceleration(10);
+      booster.destroy();
+    }
+
+    if (booster.getType() === 'shield') {
+      Session.plusShield(10);
+      booster.destroy();
+    }
+
+    if (booster.getType() === 'dirt') {
+
+      if (Session.getShield() > 0) {
+        Session.resetShield();
+        booster.destroy();
+      } else {
+        Session.plusDirt(5);
+      }
+    }
+
+    if (booster.getType() === 'obstacle') {
+
+      if (Session.getShield() > 0) {
+        Session.resetShield();
+        booster.destroy();
+      } else {
+        Session.setSpeed(MIN_SPEED);
+        this._scene.player.flash();
+      }
+    }
+  }
+
+  private _opponentsBoostersCollision(opponent: Opponent, booster: Booster): void {
+    if (!booster.isActive()) return;
+
+    if (booster.getType() === 'obstacle' || booster.getType() === 'dirt') {
+      booster.setDisable();
+      booster.destroy();
+      opponent.setLowSpeed();
+    }
+  }
+
   private _gameOver(): void {
     if (Session.isOver()) return;
     Session.setOver();
@@ -138,7 +204,7 @@ class GameActions {
     this._scene.scene.start('UI');
   }
 
-  private _click(): void {
+  private _press(): void {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
     const e = User.getEquipmentActive();
@@ -148,6 +214,18 @@ class GameActions {
     Session.setSpeed(speed);
   }
 
+  private _createCoin(): void {
+    const place = this._scene.player.getPlace();
+    const min = 2000, max = 3000;
+    const delay = Settings.measuring ? min : Phaser.Math.Between(min, max);
+    const part = delay / 5;
+    this._scene.time.addEvent({ delay: delay + part * place, callback: (): void => {
+      if (Session.isOver()) return;
+      new Coin(this._scene);
+      this._createCoin();
+    }, loop: false });
+  }
+
   public update(time: number, delta: number): void {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
@@ -155,7 +233,10 @@ class GameActions {
     const co = delta / 100;
     const minus = (e === 5 ? 2 : e === 4 ? 2.5 : e === 3 ? 3 : e === 2 ? 3.5 : 4) * co;
     const speed = Session.getSpeed() - minus < MIN_SPEED ? MIN_SPEED : Session.getSpeed() - minus;
-    Session.setSpeed(Settings.measuring ? Settings.getMaxSpeed() : speed);
+
+    const result = Settings.measuring ? Settings.getMaxSpeed() : Session.getAcceleration() > 0 ? Settings.getMaxSpeed() + 10 : speed
+    Session.setSpeed(result);
+    
     Session.plusDistance(Session.getSpeed());
     const lap = Math.ceil(Session.getDistance() / Settings.lapDistance);
 
@@ -166,16 +247,33 @@ class GameActions {
     }
   }
 
-  public createCoin(): void {
-    const place = this._scene.player.getPlace();
-    const min = 2000, max = 3000;
-    const delay = Settings.measuring ? min : Phaser.Math.Between(min, max);
-    const part = delay / 5;
-    this._scene.time.addEvent({ delay: delay + part * place, callback: (): void => {
+  public start(): void {
+    this._createCoin();
+    this._scene.time.addEvent({ delay: 1000, callback: (): void => {
       if (Session.isOver()) return;
-      new Coin(this._scene);
-      this.createCoin();
-    }, loop: false });
+      Session.minusObjectsPullDelay();
+      Session.minusAcceleration();
+      Session.minusShield();
+      Session.minusDirt();
+      const pull = Session.getObjectsPull();
+
+      if (pull.acceleration || pull.shield || pull.dirt || pull.obstacle) {
+        const keys: typeObject[] = [];
+        pull.acceleration && keys.push('acceleration');
+        pull.shield && keys.push('shield');
+        pull.dirt && keys.push('dirt');
+        pull.obstacle && keys.push('obstacle');
+        const type = keys[Phaser.Math.Between(0, keys.length - 1)];
+        const time = Session.getAcceleration() === 0 && Session.getShield() === 0 && Session.getDirt() === 0;
+        const booster = this._scene.boosters.getLength() === 0;
+
+        if (type === 'obstacle') {
+          booster && new Booster(this._scene, type);
+        } else {
+          time && booster && new Booster(this._scene, type);
+        }
+      }
+    }, loop: true });
   }
 }
 

@@ -19,6 +19,12 @@ class Utils {
     return hours + ':' + (minutes.toString().length === 1 ? '0' + minutes : minutes) + ':' + (seconds.toString().length === 1 ? '0' + seconds : seconds);
   }
 
+  public static convertTimeSeconds(time: number): string {
+    const minutes = Math.floor(time / 60);
+    const seconds = time - minutes * 60;
+    return minutes + ':' + (seconds.toString().length === 1 ? '0' + seconds : seconds);
+  }
+
   public static link(link: string): void {
     const a = document.createElement('a');
     a.setAttribute('target', '_blank');

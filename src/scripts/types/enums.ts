@@ -5,10 +5,11 @@ enum screen {
   RATINGS,
   STORE,
   RESULT,
-  PAUSE,
-  
+  PAUSE
 }
+type typeObject = 'acceleration' | 'shield' | 'dirt' | 'obstacle';
 
 export {
-  screen
+  screen,
+  typeObject
 }
