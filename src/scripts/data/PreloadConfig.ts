@@ -53,6 +53,8 @@ import finish from '../../assets/images/finish.png';
 import opponentPlace from '../../assets/images/opponent-place.png';
 import playerPlace from '../../assets/images/player-place.png';
 import gameCoin from '../../assets/images/game-coin.png';
+import soundEnable from '../../assets/images/sound-enable.png';
+import soundDisable from '../../assets/images/sound-disable.png';
 
 import win13 from '../../assets/sounds/win-1-3.mp3';
 import win45 from '../../assets/sounds/win-4-5.mp3';
@@ -119,6 +121,8 @@ class PreloadConfig {
       "opponent-place": opponentPlace,
       "player-place": playerPlace,
       "game-coin": gameCoin,
+      "sound-enable": soundEnable,
+      "sound-disable": soundDisable,
 
     },
     "spritesheets": {

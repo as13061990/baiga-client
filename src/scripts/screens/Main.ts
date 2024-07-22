@@ -1,9 +1,10 @@
 import UI from '../scenes/UI';
 import Button from '../components/Button';
+import Zone from '../components/Zone';
 import Settings from '../data/Settings';
 import User from '../data/User';
-import { screen } from '../types/enums';
 import Utils from '../data/Utils';
+import { screen } from '../types/enums';
 
 class Main {
   constructor(scene: UI) {
@@ -12,6 +13,7 @@ class Main {
   }
 
   private _scene: UI;
+  private _sound: Phaser.GameObjects.Sprite;
 
   private _build(): void {
     Settings.sounds.playMusic('menu');
@@ -64,6 +66,10 @@ class Main {
       color: '#A6192E'
     }).setOrigin(.5, .5);
     play.callback = this._play.bind(this);
+
+    this._sound = this._scene.add.sprite(width - 150, 132, this._getSoundTexture());
+    const sound = Zone.createFromObject(this._sound);
+    sound.clickCallback = this._mute.bind(this);
   }
 
   private _rules(): void {
@@ -83,6 +89,15 @@ class Main {
 
   private _play(): void {
     User.getAttempts() > 0 && this._scene.scene.start('Game');
+  }
+
+  public _mute(): void {
+    Settings.sounds.mute(!Settings.sounds.isMute());
+    this._sound.setTexture(this._getSoundTexture());
+  }
+
+  private _getSoundTexture(): string {
+    return Settings.sounds.isMute() ? 'sound-disable' : 'sound-enable';
   }
 }
 

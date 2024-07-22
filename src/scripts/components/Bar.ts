@@ -2,8 +2,9 @@ import Game from '../scenes/Game';
 import Settings from '../data/Settings';
 import Session from '../data/Session';
 import Zone from './Zone';
-import { screen } from '../types/enums';
 import Utils from '../data/Utils';
+import User from '../data/User';
+import { screen } from '../types/enums';
 
 class Bar extends Phaser.GameObjects.Sprite {
   constructor(scene: Game) {
@@ -18,12 +19,18 @@ class Bar extends Phaser.GameObjects.Sprite {
   private _score: Phaser.GameObjects.Text;
   private _balance: Phaser.GameObjects.Text;
   private _coin: Phaser.GameObjects.Sprite;
+  private _sound: Phaser.GameObjects.Sprite;
 
   private _build(): void {
     this.scene.add.existing(this);
     const pause = Zone.createFromObject(this).setDepth(2);
     pause.clickCallback = this._pause.bind(this);
 
+    const { width } = this.scene.cameras.main;
+    this._sound = this.scene.add.sprite(width - 210, 150, this._getSoundTexture());
+    const sound = Zone.createFromObject(this._sound).setDepth(2);
+    sound.clickCallback = this._mute.bind(this);
+    
     this._speed = this.scene.add.text(400, 105, '0 км/ч'.toUpperCase(), {
       font: '40px geometria_bold',
       color: '#A6192E'
@@ -41,12 +48,12 @@ class Bar extends Phaser.GameObjects.Sprite {
     const balance = this.scene.add.sprite(40, 240, 'balance-bar').setOrigin(0, 0);
 
     this._score = this.scene.add.text(score.getBounds().centerX, score.getBounds().centerY, Session.getScore().toString(), {
-      font: '54px Geometria-ExtraBoldItalic',
+      font: '54px geometria_extrabold',
       color: '#FFFFFF'
     }).setOrigin(.5, .5);
 
-    this._balance = this.scene.add.text(balance.getBounds().centerX - 20, balance.getBounds().centerY, Session.getCoins().toString(), {
-      font: '48px geometria_bolditalic',
+    this._balance = this.scene.add.text(balance.getBounds().centerX - 20, balance.getBounds().centerY, (User.getBalance() + Session.getCoins()).toString(), {
+      font: '48px geometria_bold',
       color: '#A6192E'
     }).setOrigin(.5, .5);
     this._coin = this.scene.add.sprite(this._balance.getBounds().right + 10, this._balance.getBounds().centerY, 'coin').setScale(.66).setOrigin(0, .5);
@@ -59,6 +66,17 @@ class Bar extends Phaser.GameObjects.Sprite {
     Settings.setScreen(screen.PAUSE);
     this.scene.scene.pause();
     this.scene.scene.launch('UI');
+  }
+
+  public _mute(): void {
+    if (!Session.isStarted()) return;
+    if (Session.isOver()) return;
+    Settings.sounds.mute(!Settings.sounds.isMute());
+    this._sound.setTexture(this._getSoundTexture());
+  }
+
+  private _getSoundTexture(): string {
+    return Settings.sounds.isMute() ? 'sound-disable' : 'sound-enable';
   }
   
   private _getPlaceText(): string {
@@ -103,7 +121,7 @@ class Bar extends Phaser.GameObjects.Sprite {
     lap !== this._lap.text && this._lap.setText(lap);
     const score = Utils.formatSum(Session.getScore());
     score !== this._score.text && this._score.setText(score);
-    const balance = Utils.formatSum(Session.getCoins());
+    const balance = Utils.formatSum(User.getBalance() + Session.getCoins());
 
     if (balance !== this._balance.text) {
       this._balance.setText(balance);

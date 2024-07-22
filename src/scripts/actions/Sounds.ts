@@ -52,7 +52,7 @@ class Sounds implements Isounds {
   public mute(mute: boolean): void {
     this._volume = mute ? 0 : 1;
     // @ts-ignore
-    this._music.setVolume(this._volume);
+    this._music?.setVolume(this._volume);
   }
 
   public unmute(): void {
