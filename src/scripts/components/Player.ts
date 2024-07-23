@@ -2,6 +2,8 @@ import Game from '../scenes/Game';
 import Session from '../data/Session';
 import User from '../data/User';
 
+const HORSEMAN_INDENT = 20;
+const PLACE_INDENT = 75;
 const DIRT_ALPHA = .7;
 const FLASH_ALPHA = .5;
 
@@ -28,9 +30,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(1);
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
-    this._horseman = this.scene.add.sprite(this.getBounds().centerX + 46, this.getBounds().top + 57, 'player-' + User.getEquipmentActive());
+    this._horseman = this.scene.add.sprite(this.getBounds().centerX + HORSEMAN_INDENT, this.getBounds().top + 57, 'player-' + User.getEquipmentActive());
     this._horseman.setDepth(this.depth);
-    this._placeIcon = this.scene.add.sprite(this.getBounds().centerX + 75, this._horseman.getBounds().top - 20, 'player-place').setOrigin(.5, 1).setDepth(this.depth).setAlpha(0);
+    this._horseman.anims.create({
+      key: 'player-' + User.getEquipmentActive(),
+      frames: this.anims.generateFrameNumbers('player-' + User.getEquipmentActive(), { start: 0, end: 3 }),
+      frameRate: 12,
+      repeat: -1
+    });
+    this._placeIcon = this.scene.add.sprite(this.getBounds().centerX + PLACE_INDENT, this._horseman.getBounds().top - 20, 'player-place').setOrigin(.5, 1).setDepth(this.depth).setAlpha(0);
     this._placeText = this.scene.add.text(this._placeIcon.getBounds().centerX, this._placeIcon.getBounds().top + 10, this.getPlace().toString(), {
       font: '40px geometria_bold',
       color: '#EFDD00'
@@ -77,10 +85,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     super.preUpdate(time, delta);
     const msPerFrame = 140 - Math.round(Session.getSpeed() * .6);
     this.anims.msPerFrame = msPerFrame;
+    this._horseman.anims.msPerFrame = msPerFrame * 1.5;
     this.anims.play('horse-' + User.getHorseActive(), true);
+    this._horseman.anims.play('player-' + User.getEquipmentActive(), true);
     this._setPlace();
-    this._horseman.setX(this.getBounds().centerX + 46);
-    this._placeIcon.setX(this.getBounds().centerX + 75);
+    this._horseman.setX(this.getBounds().centerX + HORSEMAN_INDENT);
+    this._placeIcon.setX(this.getBounds().centerX + PLACE_INDENT);
     this._placeText.setX(this._placeIcon.x);
     const place = this.getPlace().toString();
     place !== this._placeText.text && this._placeText.setText(place);

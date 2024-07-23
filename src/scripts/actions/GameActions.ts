@@ -15,6 +15,7 @@ import Lap from '../components/Lap';
 import Coin from '../components/Coin';
 import Booster from '../components/Booster';
 import { screen, typeObject } from '../types/enums';
+import Tap from '../components/Tap';
 
 const MIN_SPEED = 30;
 
@@ -204,9 +205,10 @@ class GameActions {
     this._scene.scene.start('UI');
   }
 
-  private _press(): void {
+  private _press(pointer: Phaser.Input.Pointer): void {
     if (Session.isOver()) return;
     if (!Session.isStarted()) return;
+    Settings.isMobile() && new Tap(this._scene, pointer.worldX, pointer.worldY);
     const e = User.getEquipmentActive();
     const max = Settings.getMaxSpeed();
     const points = e === 5 ? 12 : e === 4 ? 11 : e === 3 ? 10 : e === 2 ? 9 : 8;
@@ -268,7 +270,7 @@ class GameActions {
         const booster = this._scene.boosters.getLength() === 0;
 
         if (type === 'obstacle') {
-          booster && new Booster(this._scene, type);
+          Session.getAcceleration() === 0 && booster && new Booster(this._scene, type);
         } else {
           time && booster && new Booster(this._scene, type);
         }

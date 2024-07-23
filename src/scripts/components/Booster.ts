@@ -53,8 +53,8 @@ class Booster extends Phaser.Physics.Arcade.Sprite {
     const { height } = this.scene.cameras.main;
     if (this._type === 'acceleration') return height - 340;
     if (this._type === 'shield') return height - 340;
-    if (this._type === 'dirt') return height - 180;
-    if (this._type === 'obstacle') return height - 180;
+    if (this._type === 'dirt') return height - 189;
+    if (this._type === 'obstacle') return height - 187;
   }
 
   public getType(): typeObject {

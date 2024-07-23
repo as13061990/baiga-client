@@ -2,6 +2,8 @@ import Game from '../scenes/Game';
 import Session from '../data/Session';
 import Settings from '../data/Settings';
 
+const HORSEMAN_INDENT = 20;
+const PLACE_INDENT = 75;
 const DIRT_ALPHA = .7;
 
 class Opponent extends Phaser.Physics.Arcade.Sprite {
@@ -31,8 +33,14 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     this.scene.opponents.add(this);
-    this._horseman = this.scene.add.sprite(this.getBounds().centerX + 46, this.getBounds().top + 57, 'player-' + Phaser.Math.Between(1, 5));
-    this._placeIcon = this.scene.add.sprite(this.getBounds().centerX + 75, this._horseman.getBounds().top - 20, 'opponent-place').setOrigin(.5, 1).setDepth(this.depth).setAlpha(0);
+    this._horseman = this.scene.add.sprite(this.getBounds().centerX + HORSEMAN_INDENT, this.getBounds().top + 57, 'player-' + Phaser.Math.Between(1, 5));
+    this._horseman.anims.create({
+      key: this._horseman.texture.key,
+      frames: this.anims.generateFrameNumbers(this._horseman.texture.key, { start: 0, end: 3 }),
+      frameRate: (7 + this._level) * .66,
+      repeat: -1
+    });
+    this._placeIcon = this.scene.add.sprite(this.getBounds().centerX + PLACE_INDENT, this._horseman.getBounds().top - 20, 'opponent-place').setOrigin(.5, 1).setDepth(this.depth).setAlpha(0);
     this._placeText = this.scene.add.text(this._placeIcon.getBounds().centerX, this._placeIcon.getBounds().top + 10, this._getPlace().toString(), {
       font: '40px geometria_bold',
       color: '#A6192E'
@@ -84,13 +92,14 @@ class Opponent extends Phaser.Physics.Arcade.Sprite {
     if (!Session.isStarted()) return;
     super.preUpdate(time, delta);
     this.anims.play(this.texture.key, true);
+    this._horseman.anims.play(this._horseman.texture.key, true);
     this._setPlace();
     this._distance += this._getSpeed();
     const distance = Session.getDistance() - this._distance;
     const indent = distance * Settings.co;
     this.setX(this.scene.player.x - indent);
-    this._horseman.setX(this.getBounds().centerX + 46);
-    this._placeIcon.setX(this.getBounds().centerX + 75);
+    this._horseman.setX(this.getBounds().centerX + HORSEMAN_INDENT);
+    this._placeIcon.setX(this.getBounds().centerX + PLACE_INDENT);
     this._placeText.setX(this._placeIcon.x);
     const place = this._getPlace().toString();
     place !== this._placeText.text && this._placeText.setText(place);

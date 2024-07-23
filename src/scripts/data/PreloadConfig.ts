@@ -66,6 +66,7 @@ import mainHorse from '../../assets/images/main-horse.png';
 import lightBottom from '../../assets/images/light-bottom.png';
 import lightMiddle from '../../assets/images/light-middle.png';
 import lightTop from '../../assets/images/light-top.png';
+import tap from '../../assets/images/tap.png';
 
 import win13 from '../../assets/sounds/win-1-3.mp3';
 import win45 from '../../assets/sounds/win-4-5.mp3';
@@ -124,11 +125,6 @@ class PreloadConfig {
       "fence": fence,
       "score-bar": scoreBar,
       "balance-bar": balanceBar,
-      "player-1": player1,
-      "player-2": player2,
-      "player-3": player3,
-      "player-4": player4,
-      "player-5": player5,
       "finish": finish,
       "opponent-place": opponentPlace,
       "player-place": playerPlace,
@@ -145,6 +141,7 @@ class PreloadConfig {
       "light-bottom": lightBottom,
       "light-middle": lightMiddle,
       "light-top": lightTop,
+      "tap": tap,
 
     },
     "spritesheets": {
@@ -172,6 +169,31 @@ class PreloadConfig {
         asset: horse5,
         width: 450,
         height: 265
+      },
+      "player-1": {
+        asset: player1,
+        width: 396,
+        height: 212
+      },
+      "player-2": {
+        asset: player2,
+        width: 396,
+        height: 212
+      },
+      "player-3": {
+        asset: player3,
+        width: 396,
+        height: 212
+      },
+      "player-4": {
+        asset: player4,
+        width: 396,
+        height: 212
+      },
+      "player-5": {
+        asset: player5,
+        width: 396,
+        height: 212
       },
     },
     "sounds": {
