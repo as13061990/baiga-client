@@ -5,6 +5,7 @@ import Ratings from '../screens/Ratings';
 import Result from '../screens/Result';
 import Rules1 from '../screens/Rules1';
 import Rules2 from '../screens/Rules2';
+import Rules3 from '../screens/Rules3';
 import Store from '../screens/Store';
 import { screen } from '../types/enums';
 
@@ -20,6 +21,8 @@ class UI extends Phaser.Scene {
       new Rules1(this);
     } else if (Settings.getScreen() === screen.RULES_2) {
       new Rules2(this);
+    } else if (Settings.getScreen() === screen.RULES_3) {
+      new Rules3(this);
     } else if (Settings.getScreen() === screen.RATINGS) {
       new Ratings(this);
     } else if (Settings.getScreen() === screen.STORE) {

@@ -3,7 +3,7 @@ import Button from '../components/Button';
 import Settings from '../data/Settings';
 import { screen } from '../types/enums';
 
-class Rules2 {
+class Rules3 {
   constructor(scene: UI) {
     this._scene = scene;
     this._build();
@@ -15,7 +15,7 @@ class Rules2 {
     const { centerX, height } = this._scene.cameras.main;
     this._scene.cameras.main.setBackgroundColor('#A6192E');
     this._scene.add.sprite(centerX, 100, 'logo').setOrigin(.5, 0);
-    this._scene.add.sprite(centerX, 280, 'rules-2').setOrigin(.5, 0);
+    this._scene.add.sprite(centerX, 280, 'rules-3').setOrigin(.5, 0);
 
     const back = new Button(this._scene, centerX, height - 385, 'button-opacity');
     back.text = this._scene.add.text(back.x, back.y, 'назад'.toUpperCase(), {
@@ -25,7 +25,7 @@ class Rules2 {
     back.callback = this._back.bind(this);
     
     const menu = new Button(this._scene, centerX, height - 195, 'button-yellow');
-    menu.text = this._scene.add.text(menu.x, menu.y, 'далее'.toUpperCase(), {
+    menu.text = this._scene.add.text(menu.x, menu.y, 'играть'.toUpperCase(), {
       font: '54px geometria_extrabold',
       color: '#A6192E'
     }).setOrigin(.5, .5);
@@ -33,14 +33,14 @@ class Rules2 {
   }
 
   private _back(): void {
-    Settings.setScreen(screen.RULES_1);
+    Settings.setScreen(screen.RULES_2);
     this._scene.scene.restart();
   }
 
   private _menu(): void {
-    Settings.setScreen(screen.RULES_3);
+    Settings.setScreen(screen.MAIN);
     this._scene.scene.restart();
   }
 }
 
-export default Rules2;
+export default Rules3;

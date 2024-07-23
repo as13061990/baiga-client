@@ -13,6 +13,7 @@ import btnPause from '../../assets/images/btn-pause.png';
 import coin from '../../assets/images/coin.png';
 import rules1 from '../../assets/images/rules-1.png';
 import rules2 from '../../assets/images/rules-2.png';
+import rules3 from '../../assets/images/rules-3.png';
 import switchStore from '../../assets/images/switch-store.png';
 import equipmentIcon1 from '../../assets/images/equipment-icon-1.png';
 import equipmentIcon2 from '../../assets/images/equipment-icon-2.png';
@@ -60,6 +61,11 @@ import shield from '../../assets/images/shield.png';
 import dirt from '../../assets/images/dirt.png';
 import stone from '../../assets/images/stone.png';
 import branch from '../../assets/images/branch.png';
+import mainLogo from '../../assets/images/main-logo.png';
+import mainHorse from '../../assets/images/main-horse.png';
+import lightBottom from '../../assets/images/light-bottom.png';
+import lightMiddle from '../../assets/images/light-middle.png';
+import lightTop from '../../assets/images/light-top.png';
 
 import win13 from '../../assets/sounds/win-1-3.mp3';
 import win45 from '../../assets/sounds/win-4-5.mp3';
@@ -91,6 +97,7 @@ class PreloadConfig {
       "coin": coin,
       "rules-1": rules1,
       "rules-2": rules2,
+      "rules-3": rules3,
       "switch-store": switchStore,
       "equipment-icon-1": equipmentIcon1,
       "equipment-icon-2": equipmentIcon2,
@@ -133,6 +140,11 @@ class PreloadConfig {
       "dirt": dirt,
       "stone": stone,
       "branch": branch,
+      "main-logo": mainLogo,
+      "main-horse": mainHorse,
+      "light-bottom": lightBottom,
+      "light-middle": lightMiddle,
+      "light-top": lightTop,
 
     },
     "spritesheets": {

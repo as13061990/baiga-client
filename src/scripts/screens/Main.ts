@@ -19,16 +19,13 @@ class Main {
     Settings.sounds.playMusic('menu');
     const { width, centerX, height } = this._scene.cameras.main;
     this._scene.add.sprite(centerX, height, 'bg-main').setOrigin(.5, 1);
-    this._scene.add.sprite(centerX, 100, 'logo').setOrigin(.5, 0);
+    this._scene.add.sprite(centerX, 100, 'main-logo').setOrigin(.5, 0);
+    this._scene.add.sprite(0, 0, 'light-top').setOrigin(0, 0);
+    this._scene.add.sprite(width, height - 490, 'light-middle').setOrigin(1, 1);
+    this._scene.add.sprite(0, height, 'light-bottom').setOrigin(0, 1);
 
-    const baiga = this._scene.add.text(centerX, Utils.getStretchPoint(height, 100, 16.9), 'Байга'.toUpperCase(), {
-      font: '230px geometria_extrabold',
-      color: '#EFDD00'
-    }).setOrigin(.5, 0);
-    this._scene.add.text(centerX, baiga.getBounds().top + 259, 'Tennisi.kz'.toUpperCase(), {
-      font: '80px geometria_extrabold',
-      color: '#FFFFFF'
-    }).setOrigin(.5, 0);
+    const scale = Settings.sizes.minHeight > 1650 ? 1 : .9;
+    this._scene.add.sprite(centerX - 20, height - 710, 'main-horse').setScale(scale).setOrigin(.5, 1);
     
     const y = height - 610;
     const rules = new Button(this._scene, 210, y, 'btn-rules');
