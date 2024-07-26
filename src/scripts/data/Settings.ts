@@ -55,7 +55,7 @@ class Settings {
   }
 
   public getSpeed(delta: number): number {
-    return delta / 100 * Session.getSpeed();
+    return delta / 70 * Session.getSpeed();
   }
 
   public getMaxSpeed(): number {

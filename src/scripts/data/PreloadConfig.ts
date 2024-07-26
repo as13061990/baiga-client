@@ -67,6 +67,7 @@ import lightBottom from '../../assets/images/light-bottom.png';
 import lightMiddle from '../../assets/images/light-middle.png';
 import lightTop from '../../assets/images/light-top.png';
 import tap from '../../assets/images/tap.png';
+import plane from '../../assets/images/plane.png';
 
 import win13 from '../../assets/sounds/win-1-3.mp3';
 import win45 from '../../assets/sounds/win-4-5.mp3';
@@ -195,6 +196,11 @@ class PreloadConfig {
         width: 396,
         height: 212
       },
+      "plane": {
+        asset: plane,
+        width: 880,
+        height: 176
+      }
     },
     "sounds": {
       "win-1-3": win13,

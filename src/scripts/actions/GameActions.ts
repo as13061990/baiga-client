@@ -16,6 +16,7 @@ import Coin from '../components/Coin';
 import Booster from '../components/Booster';
 import { screen, typeObject } from '../types/enums';
 import Tap from '../components/Tap';
+import Plane from '../components/Plane';
 
 const MIN_SPEED = 30;
 
@@ -251,6 +252,7 @@ class GameActions {
 
   public start(): void {
     this._createCoin();
+    this._createPlane();
     this._scene.time.addEvent({ delay: 1000, callback: (): void => {
       if (Session.isOver()) return;
       Session.minusObjectsPullDelay();
@@ -276,6 +278,14 @@ class GameActions {
         }
       }
     }, loop: true });
+  }
+
+  private _createPlane(): void {
+    this._scene.time.addEvent({ delay: 20000, callback: (): void => {
+      if (Session.isOver()) return;
+      new Plane(this._scene);
+      this._createPlane();
+    }, loop: false });
   }
 }
 
