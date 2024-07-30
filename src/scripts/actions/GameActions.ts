@@ -69,12 +69,12 @@ class GameActions {
     bg.setInteractive({ cursor: 'default' });
     const tutorial = this._scene.add.sprite(centerX, Utils.getStretchPoint(height, 100, 16.9), 'tutorial').setOrigin(.5, 0).setDepth(depth);
     const platform = Settings.isMobile() ? 'Тапайте по экрану' : 'Нажимайте на пробел';
-    const text = platform + ', чтобы увеличить\nскорость лошади.\n\nСобирайте монетки, покупайте\nновых скакунов и экипировку.\n\nПридите к финишу первым!';
+    const text = platform + ', чтобы увеличить\nскорость лошади.\n\nСобирайте монетки, покупайте\nновых скакунов и экипировку.\n\nСобирайте бустеры для увеличения\nскорости и щиты для защиты от луж,\nкамней и веток.\n\nПридите к финишу первым!';
     const descr = this._scene.add.text(centerX, tutorial.getBounds().bottom + 60, text, {
       font: '44px geometria_bold',
       color: '#FFFFFF',
       align: 'center'
-    }).setOrigin(.5, 0).setLineSpacing(10).setDepth(depth);
+    }).setOrigin(.5, 0).setDepth(depth);
     const go = new Button(this._scene, centerX, height - 195, 'button-yellow').setDepth(depth);
     go.text = this._scene.add.text(go.x, go.y, 'погнали'.toUpperCase(), {
       font: '54px geometria_extrabold',
