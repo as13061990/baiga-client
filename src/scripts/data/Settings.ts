@@ -66,19 +66,19 @@ class Settings {
   }
 
   public getAccelerationDelay(): number {
-    return Phaser.Math.Between(25, 35);
-  }
-
-  public getShieldDelay(): number {
-    return Phaser.Math.Between(30, 40);
-  }
-
-  public getDirtDelay(): number {
     return Phaser.Math.Between(15, 25);
   }
 
+  public getShieldDelay(): number {
+    return Phaser.Math.Between(15, 20);
+  }
+
+  public getDirtDelay(): number {
+    return Phaser.Math.Between(10, 17);
+  }
+
   public getObstacleDelay(): number {
-    return Phaser.Math.Between(30, 40);
+    return Phaser.Math.Between(15, 20);
   }
 }
 
