@@ -40,6 +40,7 @@ class GameActions {
       // Session.plusShield(10);
       // Session.plusDirt(5);
       // this._scene.player.flash();
+      // new Plane(this._scene);
     });
   }
 
@@ -68,9 +69,14 @@ class GameActions {
     const bg = this._scene.add.rectangle(centerX, centerY, width, height, 0x000000, .85).setDepth(depth);
     bg.setInteractive({ cursor: 'default' });
     const tutorial = this._scene.add.sprite(centerX, Utils.getStretchPoint(height, 100, 16.9), 'tutorial').setOrigin(.5, 0).setDepth(depth);
-    const platform = Settings.isMobile() ? 'Тапайте по экрану' : 'Нажимайте на пробел';
-    const text = platform + ', чтобы увеличить\nскорость лошади.\n\nСобирайте монетки, покупайте\nновых скакунов и экипировку.\n\nСобирайте бустеры для увеличения\nскорости и щиты для защиты от луж,\nкамней и веток.\n\nПридите к финишу первым!';
-    const descr = this._scene.add.text(centerX, tutorial.getBounds().bottom + 60, text, {
+    
+    const descr1 = Settings.isMobile() ? this._scene.add.text(centerX, tutorial.getBounds().bottom + 60, 'Тапайте по экрану, чтобы увеличить\nскорость лошади.', {
+      font: '44px geometria_bold',
+      color: '#FFFFFF',
+      align: 'center'
+    }).setOrigin(.5, 0).setDepth(depth) : this._scene.add.sprite(centerX, tutorial.getBounds().bottom + 60, 'tutorial-text-desktop').setOrigin(.5, 0).setDepth(depth);
+
+    const descr2 = this._scene.add.text(centerX, descr1.getBounds().bottom + (Settings.isMobile() ? 50 : 38), 'Собирайте монетки, покупайте\nновых скакунов и экипировку.\n\nСобирайте бустеры для увеличения\nскорости и щиты для защиты от луж,\nкамней и веток.\n\nПридите к финишу первым!', {
       font: '44px geometria_bold',
       color: '#FFFFFF',
       align: 'center'
@@ -84,7 +90,8 @@ class GameActions {
       Session.setTutorial();
       bg.destroy();
       tutorial.destroy();
-      descr.destroy();
+      descr1.destroy();
+      descr2.destroy();
       go.destroy();
       this._bar.start();
       Settings.sounds.play('start');

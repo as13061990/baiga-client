@@ -7,8 +7,8 @@ class Plane extends Phaser.GameObjects.Sprite {
   private _build(): void {
     this.anims.create({
       key: 'plane',
-      frames: this.anims.generateFrameNumbers('plane', { start: 0, end: 7 }),
-      frameRate: 12,
+      frames: this.anims.generateFrameNumbers('plane', { start: 0, end: 13 }),
+      frameRate: 10,
       repeat: -1
     });
     this.setOrigin(0, 0);

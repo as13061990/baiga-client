@@ -68,6 +68,7 @@ import lightMiddle from '../../assets/images/light-middle.png';
 import lightTop from '../../assets/images/light-top.png';
 import tap from '../../assets/images/tap.png';
 import plane from '../../assets/images/plane.png';
+import tutorialTextDesktop from '../../assets/images/tutorial-text-desktop.png';
 
 import win13 from '../../assets/sounds/win-1-3.mp3';
 import win45 from '../../assets/sounds/win-4-5.mp3';
@@ -143,6 +144,7 @@ class PreloadConfig {
       "light-middle": lightMiddle,
       "light-top": lightTop,
       "tap": tap,
+      "tutorial-text-desktop": tutorialTextDesktop,
 
     },
     "spritesheets": {
@@ -198,7 +200,7 @@ class PreloadConfig {
       },
       "plane": {
         asset: plane,
-        width: 880,
+        width: 720,
         height: 176
       }
     },
